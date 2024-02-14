@@ -5,8 +5,6 @@ const bcrypt = require("bcrypt");
 const supabase = require("../model");
 const jwt = require("jsonwebtoken");
 
-// Assigning users to the variable User
-// const User = db.users;
 
 //signing a user up
 //hashing users password before its saved to the database with bcrypt
