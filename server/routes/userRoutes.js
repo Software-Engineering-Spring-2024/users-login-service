@@ -1,6 +1,7 @@
 //importing modules
 const express = require('express');
 const userController = require('../controller/userController');
+const { handleGoogleOAuth } = userController;
 const signup = require("../services/signup");
 // const { signup, login } = userController;
 const sendOtp = require("../services/sendOtp");
@@ -12,6 +13,9 @@ const router = express.Router();
 //signup endpoint
 //passing the middleware function to the signup
 router.post('/signup',checkUser, signup);
+
+// user login/signup with google
+router.post('/google-auth', handleGoogleOAuth)
 
 //login route
 router.post('/login', login );

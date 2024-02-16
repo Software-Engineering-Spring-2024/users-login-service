@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const supabase = require("../model");
 const jwt = require("jsonwebtoken");
 const { v4 : uuidv4 } = require('uuid');
+const { addUser } = require("../services/addUser")
 
 const signup = async (req, res) => {
     try {
@@ -29,17 +30,12 @@ const signup = async (req, res) => {
             console.log("user", JSON.stringify(userRow, null, 2));
             console.log(token);
             //Adding user details to DB
-            const userDetails = {
-                user_id: uuid,username: username,firstName:firstName,lastName:lastName,email:email,mobile:mobile,address:address,zipcode:zipCode,userId:userRow.id
+            const userDetailsToAdd = {
+                user_id: uuid,username: username,firstName:firstName,lastName:lastName,email:email,mobile:mobile,address:address,zipcode:zipCode
             };
-            const {data:userData,error:userDataError} = await supabase
-                .from('user-details')
-                .insert(userDetails)
-                .select();
-            console.log(userData);
-            console.log(userDataError);
+            const {code, message} = await addUser(userDetailsToAdd);
             //send signup response
-            if(!userDataError){
+            if(code == 200){
                 res.cookie("jwt", token, { maxAge: 24 * 60 * 60, httpOnly: true });
                 return res.status(200).send("Signed Up Successfully");
             }
