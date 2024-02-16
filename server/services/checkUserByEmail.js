@@ -4,7 +4,7 @@ const checkUserByEmail = async(userEmail) => {
     try {
         const {data:userData, error:userDataError} = await supabase
             .from('user-details')
-            .select('email')
+            .select('user_id, email')
             .eq('email', userEmail);
         console.log("checkUserByEmail service userData: ", userData);
         console.log("checkUserByEmail service userDataError: ", userDataError);

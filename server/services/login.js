@@ -15,7 +15,7 @@ const login = async (req, res) => {
         //find a user by their email
         const {data:users,error} = await supabase
             .from('login-details')
-            .select('id,password')
+            .select('user_id, password')
             .eq('email',email);
 
         //if user email is found, compare password with bcrypt
