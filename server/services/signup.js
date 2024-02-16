@@ -1,11 +1,15 @@
 const bcrypt = require("bcrypt");
 const supabase = require("../model");
 const jwt = require("jsonwebtoken");
+const { v4 : uuidv4 } = require('uuid');
 
 const signup = async (req, res) => {
     try {
         const { username,firstName,lastName,email,password,mobile,address,zipCode } = req.body;
+        const uuid = uuidv4();
+        console.log(uuid);
         const userLogin = {
+            user_id: uuid,
             username: username,
             email: email,
             password: await bcrypt.hash(password, 10)
@@ -26,7 +30,7 @@ const signup = async (req, res) => {
             console.log(token);
             //Adding user details to DB
             const userDetails = {
-                username: username,firstName:firstName,lastName:lastName,email:email,mobile:mobile,address:address,zipcode:zipCode,userId:userRow.id
+                user_id: uuid,username: username,firstName:firstName,lastName:lastName,email:email,mobile:mobile,address:address,zipcode:zipCode,userId:userRow.id
             };
             const {data:userData,error:userDataError} = await supabase
                 .from('user-details')
