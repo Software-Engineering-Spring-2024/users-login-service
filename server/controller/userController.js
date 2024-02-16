@@ -8,8 +8,6 @@ const { addUser } = require("../services/addUser")
 const { checkUserByEmail } = require("../services/checkUserByEmail")
 const { v4: uuidv4 } = require('uuid');
 
-// Assigning users to the variable User
-// const User = db.users;
 
 //signing a user up
 //hashing users password before its saved to the database with bcrypt
