@@ -6,6 +6,7 @@ const supabase = require("../model");
 const jwt = require("jsonwebtoken");
 const { addUser } = require("../services/addUser")
 const { checkUserByEmail } = require("../services/checkUserByEmail")
+const {resetPassword} = require('../services/resetPassword')
 const { v4: uuidv4 } = require('uuid');
 
 const handleGoogleOAuth = async(req, res) => {
@@ -51,6 +52,27 @@ const handleGoogleOAuth = async(req, res) => {
     }
 }
 
+const handleResetPassword = async(req,res) => {
+    try {
+        const request = req.body;
+        console.log(request);
+        let email;
+        const newPassword = request.password;
+        if(request.email){
+            email = request.email;
+        }
+        else{ throw new Error('Invalid Email');}
+        const response = await resetPassword(email,newPassword);
+        if(response.code === 200){
+            return res.status(response.code).send(response);
+        }
+        return res.send(response.code).send(response);
+    }
+    catch (e){
+        return res.status(500).send(e.message);
+    }
+}
+
 module.exports = {
-    handleGoogleOAuth,
+    handleGoogleOAuth,handleResetPassword
 };

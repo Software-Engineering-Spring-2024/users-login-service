@@ -1,10 +1,11 @@
 //importing modules
 const express = require('express');
 const userController = require('../controller/userController');
-const { handleGoogleOAuth } = userController;
+const { handleGoogleOAuth, handleResetPassword } = userController;
 const signup = require("../services/signup");
 // const { signup, login } = userController;
 const sendOtp = require("../services/sendOtp");
+const {resetPassword} = require("../services/resetPassword");
 const {checkUser, verifyEmail} = require("../middleware/userVerificationExistsOrNot");
 const login = require("../services/login");
 
@@ -22,6 +23,8 @@ router.post('/login', login );
 
 //Send Otp to email
 router.post('/sendOtp',sendOtp);
+//Reset Password
+router.post('/reset-password',handleResetPassword);
 // //Verify Email exists or not
 // router.post('/verify-email',checkUser);
 

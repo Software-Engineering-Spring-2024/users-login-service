@@ -27,7 +27,7 @@ const sendOtp = async (req,res) => {
     console.log(email);
     try {
         const emailList = await verifyEmail(email);
-        if(!emailList){
+        if(emailList.length === 0){
             return res.status(500).send({message:"Not a Registered Email"});
         }
     }
