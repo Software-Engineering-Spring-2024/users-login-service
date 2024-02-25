@@ -37,12 +37,12 @@ const login = async (req, res) => {
                 console.log("user", JSON.stringify(user, null, 2));
                 console.log(token);
                 //send user data
-                return res.status(200).send("Login Successful");
+                return res.status(200).send({message:"Login Successful"});
             } else {
-                return res.status(400).send("Invalid Password");
+                return res.status(400).send({message:"Invalid Password"});
             }
         } else {
-            return res.status(400).send("Invalid Username/Password");
+            return res.status(400).send({message:"Invalid Username/Password"});
         }
     } catch (error) {
         console.log(error);
