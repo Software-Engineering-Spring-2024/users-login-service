@@ -22,7 +22,7 @@ const handleGoogleOAuth = async(req, res) => {
                 expiresIn: 24 * 60 * 60 * 1000,
             });
             res.cookie("jwt", token, { maxAge: 24 * 60 * 60, httpOnly: true });
-            return res.status(200).send("Signed In Successfully");
+            return res.status(200).send({message: "Signed In Successfully", token});
         }
         // return res.status(200).send('Testing google auth')
         console.log("User not found, need to add user")
@@ -43,7 +43,7 @@ const handleGoogleOAuth = async(req, res) => {
                 expiresIn: 24 * 60 * 60 * 1000,
             });
             res.cookie("jwt", token, { maxAge: 24 * 60 * 60, httpOnly: true });
-            return res.status(code).send("Signed In Successfully");
+            return res.status(code).send({message: "Signed In Successfully", token});
         }
 
     } catch (error) {
