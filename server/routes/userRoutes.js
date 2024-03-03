@@ -8,6 +8,7 @@ const sendOtp = require("../services/sendOtp");
 const {resetPassword} = require("../services/resetPassword");
 const {checkUser, verifyEmail} = require("../middleware/userVerificationExistsOrNot");
 const login = require("../services/login");
+const { getUserDetailsFromToken } = require("./../services/getUserDetailsFromToken");
 
 const router = express.Router();
 
@@ -27,5 +28,7 @@ router.post('/sendOtp',sendOtp);
 router.post('/reset-password',handleResetPassword);
 // //Verify Email exists or not
 // router.post('/verify-email',checkUser);
+
+router.get('/get-user-details-from-token', getUserDetailsFromToken);
 
 module.exports = router;

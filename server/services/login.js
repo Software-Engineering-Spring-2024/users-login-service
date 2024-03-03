@@ -27,7 +27,7 @@ const login = async (req, res) => {
             //generate token with the user's id and the secretKey in the env file
 
             if (isSame) {
-                let token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+                let token = jwt.sign({ id: user.user_id }, process.env.SECRET_KEY, {
                     expiresIn: 24 * 60 * 60 * 1000,
                 });
 
@@ -37,7 +37,7 @@ const login = async (req, res) => {
                 console.log("user", JSON.stringify(user, null, 2));
                 console.log(token);
                 //send user data
-                return res.status(200).send({message:"Login Successful"});
+                return res.status(200).send({message:"Login Successful", token});
             } else {
                 return res.status(400).send({message:"Invalid Password"});
             }
