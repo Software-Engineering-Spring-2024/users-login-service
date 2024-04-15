@@ -6,7 +6,7 @@ const { addUser } = require("../services/addUser")
 
 const signup = async (req, res) => {
     try {
-        const { username,firstName,lastName,email,password,mobile,address,zipCode } = req.body;
+        const { username,firstName,lastName,email,password,mobile,address,zipCode, lat, long } = req.body;
         const uuid = uuidv4();
         console.log(uuid);
         const userLogin = {
@@ -31,7 +31,7 @@ const signup = async (req, res) => {
             console.log(token);
             //Adding user details to DB
             const userDetailsToAdd = {
-                user_id: uuid,username: username,firstName:firstName,lastName:lastName,email:email,mobile:mobile,address:address,zipcode:zipCode
+                user_id: uuid,username: username,firstName:firstName,lastName:lastName,email:email,mobile:mobile,address:address,zipcode:zipCode, lat:lat, long:long
             };
             const {code, message} = await addUser(userDetailsToAdd);
             //send signup response
