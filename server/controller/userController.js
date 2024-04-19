@@ -8,6 +8,7 @@ const { addUser } = require("../services/addUser")
 const { checkUserByEmail } = require("../services/checkUserByEmail")
 const {resetPassword} = require('../services/resetPassword')
 const { v4: uuidv4 } = require('uuid');
+const updateUserDetails = require("../services/updateUserDetails");
 
 const handleGoogleOAuth = async(req, res) => {
     try {
@@ -73,6 +74,22 @@ const handleResetPassword = async(req,res) => {
     }
 }
 
+const updateProfileController = async(req,res) => {
+    try{
+        const request = req.body;
+        const uid = req.query.user_id;
+        const response = await updateUserDetails(request,uid);
+        let token = jwt.sign({ id: uid }, process.env.SECRET_KEY, {
+            expiresIn: 24 * 60 * 60 * 1000,
+        });
+        res.cookie("jwt", token, { maxAge: 24 * 60 * 60, httpOnly: true });
+        return res.status(response.code).send(response.message);
+    }
+    catch (e){
+        return res.status(500).send(e.message);
+    }
+}
+
 module.exports = {
-    handleGoogleOAuth,handleResetPassword
+    handleGoogleOAuth,handleResetPassword,updateProfileController
 };
