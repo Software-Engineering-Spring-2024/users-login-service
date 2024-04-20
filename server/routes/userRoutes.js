@@ -9,6 +9,7 @@ const {resetPassword} = require("../services/resetPassword");
 const {checkUser, verifyEmail} = require("../middleware/userVerificationExistsOrNot");
 const login = require("../services/login");
 const { getUserDetailsFromToken } = require("./../services/getUserDetailsFromToken");
+const {updateProfileController} = require("../controller/userController");
 
 const router = express.Router();
 
@@ -30,5 +31,7 @@ router.post('/reset-password',handleResetPassword);
 // router.post('/verify-email',checkUser);
 
 router.get('/get-user-details-from-token', getUserDetailsFromToken);
+
+router.post('/update-profile',updateProfileController)
 
 module.exports = router;
