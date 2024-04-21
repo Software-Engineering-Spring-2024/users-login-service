@@ -8,7 +8,7 @@ const sendOtp = require("../services/sendOtp");
 const {resetPassword} = require("../services/resetPassword");
 const {checkUser, verifyEmail} = require("../middleware/userVerificationExistsOrNot");
 const login = require("../services/login");
-const { getUserDetailsFromToken, getMultipleUserDetailsById } = require("./../services/getUserDetails");
+const { getUserDetailsFromToken, getMultipleUserDetailsById, getMultipleUserIdsByEmail } = require("./../services/getUserDetails");
 const {updateProfileController} = require("../controller/userController");
 
 const router = express.Router();
@@ -32,6 +32,7 @@ router.post('/reset-password',handleResetPassword);
 
 router.get('/get-user-details-from-token', getUserDetailsFromToken);
 router.post('/get-multiple-user-details-by-id', getMultipleUserDetailsById)
+router.post('/get-user-ids-by-email', getMultipleUserIdsByEmail)
 
 router.post('/update-profile',updateProfileController)
 
